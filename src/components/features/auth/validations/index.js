@@ -14,3 +14,6 @@ export const LoginSchema = Yup.object({
     .email("Invalid email format"),
   password: Yup.string().required("Password is required"),
 });
+export const EmailVerifySchema = Yup.object({
+  otp: Yup.string().required("Name is required"),
+});

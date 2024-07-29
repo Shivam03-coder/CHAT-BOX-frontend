@@ -32,7 +32,7 @@ export function Signupform({ showPassword, setShowpassword }) {
         if (user && status === "success") {
           action.resetForm();
 
-          dispatch(setUsercredentials(Boolean(user)));
+          dispatch(setUsercredentials(user));
 
           window.location.reload();
         }
