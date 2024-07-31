@@ -6,7 +6,6 @@ import { persitor } from "./redux/Store";
 function App() {
   return (
     <BrowserRouter>
-      
       <PersistGate persistor={persitor}>
         <Layout />
       </PersistGate>

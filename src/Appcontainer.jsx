@@ -5,7 +5,7 @@ import { Store } from "./redux/Store";
 
 function Appcontainer() {
   return (
-    <div>
+    <div className="App select-none">
       <Provider store={Store}>
         <App />
       </Provider>
