@@ -5,6 +5,7 @@ import { RegisterSchema } from "./validations";
 import { useSignupUserMutation } from "../../../redux/endpoints/userauth";
 import { useDispatch } from "react-redux";
 import { setUsercredentials } from "../../../redux/state/userState";
+import { LoadingSpinner } from "../../shared/spinners/LoadingSpinner";
 
 const initialValues = {
   fullname: "",
@@ -123,10 +124,10 @@ export function Signupform({ showPassword, setShowpassword }) {
         </div>
         <Button
           type="submit"
-          className="mt-6 bg-secondary-400 text-xl"
+          className="mt-6 flex-center bg-secondary-400 text-xl"
           fullWidth
         >
-          sign up
+          {isLoading ? <LoadingSpinner /> : "SIGN UP"}
         </Button>
       </form>
     </Card>

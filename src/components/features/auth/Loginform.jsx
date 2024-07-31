@@ -6,6 +6,7 @@ import { LoginSchema } from "./validations";
 import { useLoginUserMutation } from "../../../redux/endpoints/userauth";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
+import { LoadingSpinner } from "../../shared/spinners/LoadingSpinner";
 
 const initialValues = {
   email: "",
@@ -32,8 +33,12 @@ export default function Loginform({ showPassword, setShowpassword }) {
 
         if (status === "success") {
           action.resetForm();
+
           Navigate(`/chat/${Userid}`);
-          alert(message);
+
+          setTimeout(() => {
+            alert(message);
+          }, 5000);
         }
       } catch (error) {
         console.log(error);
@@ -111,10 +116,10 @@ export default function Loginform({ showPassword, setShowpassword }) {
         </div>
         <Button
           type="submit"
-          className="mt-6 bg-secondary-400 text-xl"
+          className="mt-6  flex-center bg-secondary-400 text-xl"
           fullWidth
         >
-          Login In
+          {isLoading ? <LoadingSpinner /> : "LOG IN"}
         </Button>
       </form>
     </Card>

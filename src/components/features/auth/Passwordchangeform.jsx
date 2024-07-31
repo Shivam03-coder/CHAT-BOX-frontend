@@ -2,6 +2,7 @@ import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { useFormik } from "formik";
 import { passwordChangeSchema } from "./validations";
 import { useChangePasswordMutation } from "../../../redux/endpoints/userauth";
+import { LoadingSpinner } from "../../shared/spinners/LoadingSpinner";
 
 const initialValues = {
   password: "",
@@ -53,8 +54,12 @@ export default function Passwordchangeform() {
             }}
           />
         </div>
-        <Button type="submit" className="mt-6 bg-secondary-400 text-xl" fullWidth>
-          CONFIRM
+        <Button
+          type="submit"
+          className="mt-6 flex-center bg-secondary-400 text-xl"
+          fullWidth
+        >
+          {isLoading ? <LoadingSpinner /> : "CONFIRM"}
         </Button>
       </form>
     </Card>
