@@ -25,10 +25,6 @@ export const publicRoutes = [
         element: <Authpage />,
       },
       {
-        path: "email-verify",
-        element: <Emailverifypage />,
-      },
-      {
         path: "change-password",
         element: <Passwordchangepage />,
       },

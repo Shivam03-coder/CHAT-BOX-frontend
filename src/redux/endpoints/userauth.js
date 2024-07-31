@@ -32,20 +32,11 @@ const userQuery = Apiservices.injectEndpoints({
         headers,
       }),
     }),
-    mailVerify: build.mutation({
-      query: (otp) => ({
-        url: "/email-verify",
-        method: "POST",
-        body: otp,
-        headers,
-      }),
-    }),
   }),
 });
 
 export const {
   useSignupUserMutation,
   useLoginUserMutation,
-  useMailVerifyMutation,
   useChangePasswordMutation,
 } = userQuery;

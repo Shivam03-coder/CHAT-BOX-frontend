@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { LoginSchema } from "./validations";
 import { useLoginUserMutation } from "../../../redux/endpoints/userauth";
+import { useSelector } from "react-redux";
+import { useMemo } from "react";
 
 const initialValues = {
   email: "",
@@ -14,6 +16,10 @@ export default function Loginform({ showPassword, setShowpassword }) {
   const [LoginUser, { isLoading }] = useLoginUserMutation();
 
   const Navigate = useNavigate();
+
+  const { Registerd_User_info } = useSelector((state) => state.user);
+
+  const Userid = useMemo(() => Registerd_User_info?._id, [Registerd_User_info]);
 
   const { errors, handleChange, values, handleSubmit } = useFormik({
     initialValues,
@@ -26,7 +32,8 @@ export default function Loginform({ showPassword, setShowpassword }) {
 
         if (status === "success") {
           action.resetForm();
-          Navigate("/email-verify");
+          Navigate(`/chat/${Userid}`);
+          alert(message);
         }
       } catch (error) {
         console.log(error);
