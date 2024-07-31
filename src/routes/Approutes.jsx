@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 
 const Homepage = lazy(() => import("../components/pages/Homepage"));
 const Authpage = lazy(() => import("../components/pages/Authpage"));
@@ -47,10 +47,10 @@ export const publicRoutes = [
 export const privateRoutes = [
   {
     path: "/profile/:id",
-    element: <Publicprofilepage />,
+    element: Publicprofilepage,
   },
   {
     path: "/chat/:id",
-    element: <Chatpage />,
+    element: Chatpage,
   },
 ];

@@ -2,6 +2,9 @@ import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { EmailVerifySchema } from "./validations";
 import { useMailVerifyMutation } from "../../../redux/endpoints/userauth";
 import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useMemo } from "react";
 
 const initialValues = {
   otp: "",
@@ -9,6 +12,12 @@ const initialValues = {
 
 export default function Emailverifyform() {
   const [Verifyotp, { isLoading }] = useMailVerifyMutation();
+
+  const { Registerd_User_info } = useSelector((state) => state.user);
+
+  const Userid = useMemo(() => Registerd_User_info?._id, [Registerd_User_info]);
+
+  const navigate = useNavigate();
 
   const { email } = localStorage.getItem("userInfo")
     ? JSON.parse(localStorage.getItem("userInfo"))
@@ -27,6 +36,7 @@ export default function Emailverifyform() {
         if (resposne.status === "success") {
           alert(resposne.message);
           action.resetForm();
+          navigate(`/chat/${Userid}`);
         }
       } catch (error) {
         console.log(error);

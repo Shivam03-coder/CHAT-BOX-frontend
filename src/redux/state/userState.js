@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import Cookie from "js-cookie";
 
 const initialState = {
-  Registerd_User_info: localStorage.getItem("userInfo") ? true : null,
+  Registerd_User_info: localStorage.getItem("userInfo")
+    ? JSON.parse(localStorage.getItem("userInfo"))
+    : null,
   isUserAuthenticated: Cookie.get("isUserAuthentucated")
     ? Cookie.get("isUserAuthentucated")
     : null,
