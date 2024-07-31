@@ -1,12 +1,14 @@
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { GoEyeClosed } from "react-icons/go";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { LoginSchema } from "./validations";
 import { useLoginUserMutation } from "../../../redux/endpoints/userauth";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import { LoadingSpinner } from "../../shared/spinners/LoadingSpinner";
+import { ScaleAnimation } from "../../animations";
+import { useGSAP } from "@gsap/react";
 
 const initialValues = {
   email: "",
@@ -17,6 +19,13 @@ export default function Loginform({ showPassword, setShowpassword }) {
   const [LoginUser, { isLoading }] = useLoginUserMutation();
 
   const Navigate = useNavigate();
+
+  const location = useLocation();
+
+  // Animation
+  useGSAP(() => {
+    ScaleAnimation("#loginCard");
+  }, [location]);
 
   const { Registerd_User_info } = useSelector((state) => state.user);
 
@@ -30,15 +39,11 @@ export default function Loginform({ showPassword, setShowpassword }) {
         const response = await LoginUser(userinfo).unwrap();
 
         const { message, status } = response;
+        console.log("🚀 ~ onSubmit: ~ status:", status);
 
         if (status === "success") {
           action.resetForm();
-
           Navigate(`/chat/${Userid}`);
-
-          setTimeout(() => {
-            alert(message);
-          }, 5000);
         }
       } catch (error) {
         console.log(error);

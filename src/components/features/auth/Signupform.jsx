@@ -6,6 +6,10 @@ import { useSignupUserMutation } from "../../../redux/endpoints/userauth";
 import { useDispatch } from "react-redux";
 import { setUsercredentials } from "../../../redux/state/userState";
 import { LoadingSpinner } from "../../shared/spinners/LoadingSpinner";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { useLocation } from "react-router-dom";
+import { ScaleAnimation } from "../../animations";
 
 const initialValues = {
   fullname: "",
@@ -17,6 +21,15 @@ export function Signupform({ showPassword, setShowpassword }) {
   const [RegiusterUser, { isLoading }] = useSignupUserMutation();
 
   const dispatch = useDispatch();
+
+  const location = useLocation();
+
+  // Animation
+  useGSAP(() => {
+    ScaleAnimation("#signUpcard");
+  }, [location]);
+
+  
 
   // FORM SUBMISSION
 
@@ -36,6 +49,8 @@ export function Signupform({ showPassword, setShowpassword }) {
           dispatch(setUsercredentials(user));
 
           window.location.reload();
+
+          alert(message);
         }
       } catch (error) {
         if (error.data && error.data.status === "failed") {
@@ -48,7 +63,7 @@ export function Signupform({ showPassword, setShowpassword }) {
 
   return (
     <Card
-      id="loginCard"
+      id="signUpcard"
       className="backdrop-blur-2xl !text-white p-5 "
       color="transparent"
       shadow={false}
