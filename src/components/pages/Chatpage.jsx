@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import Chatcontent from "../layouts/chat/MainChatContent";
 
 const Chatpage = () => {
   return (
-    <div>
-      HELLO BABY
-    </div>
-  )
-}
+    <>
+      <Chatcontent />
+    </>
+  );
+};
 
-export default Chatpage
+export default Chatpage;
