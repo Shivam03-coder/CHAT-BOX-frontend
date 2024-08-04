@@ -11,9 +11,7 @@ const Passwordchangepage = lazy(
 );
 const Errorpage = lazy(() => import("../components/pages/Errorpage"));
 const Notfoundpage = lazy(() => import("../components/pages/Notfoundpage"));
-const Emailverifypage = lazy(
-  () => import("../components/pages/Emailverifypage")
-);
+
 
 export const publicRoutes = [
   {

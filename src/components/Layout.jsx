@@ -18,7 +18,7 @@ function Layout() {
         {isUserAuthenticated ? (
           <Route
             path="/"
-            element={<Navigate to={`/chat/${Userid}`} replace />}
+            element={<Navigate to={`/chat`} replace />}
           />
         ) : (
           <Route path="/" element={<Navigate to="/auth" replace />} />
