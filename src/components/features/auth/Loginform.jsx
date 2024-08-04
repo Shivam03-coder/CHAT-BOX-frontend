@@ -9,7 +9,7 @@ import { ScaleAnimation } from "../../animations";
 import { useGSAP } from "@gsap/react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Passwordchnagemodel from "./ChangepPasswordmodel";
 
 const initialValues = {
@@ -19,11 +19,9 @@ const initialValues = {
 
 export default function Loginform({ showPassword, setShowpassword }) {
   const [LoginUser, { isLoading }] = useLoginUserMutation();
-
-  const [ShowpasswordchangeModel, setShowpasswordchangeModel] = useState(false);
+  const [showPasswordChangeModel, setShowPasswordChangeModel] = useState(false);
 
   const navigate = useNavigate();
-
   const location = useLocation();
 
   // Animation
@@ -31,22 +29,26 @@ export default function Loginform({ showPassword, setShowpassword }) {
     ScaleAnimation("#loginCard");
   }, [location]);
 
+  const handlePasswordToggle = useCallback(() => {
+    setShowpassword(prev => !prev);
+  }, [setShowpassword]);
+
+  const handlePasswordChangeModelToggle = useCallback(() => {
+    setShowPasswordChangeModel(prev => !prev);
+  }, []);
+
   const { errors, handleChange, values, handleSubmit } = useFormik({
     initialValues,
     validationSchema: LoginSchema,
     onSubmit: async (userinfo, action) => {
       try {
         const response = await LoginUser(userinfo).unwrap();
-
         const { message, status } = response;
 
         if (status === "success") {
           action.resetForm();
-
           toast.success(message);
-
           navigate(`/chat`);
-
           window.location.reload();
         }
       } catch (error) {
@@ -56,6 +58,15 @@ export default function Loginform({ showPassword, setShowpassword }) {
       }
     },
   });
+
+  const passwordIcon = (
+    <GoEyeClosed
+      className="cursor-pointer"
+      size={17}
+      color="blue"
+      onClick={handlePasswordToggle}
+    />
+  );
 
   return (
     <section>
@@ -105,21 +116,14 @@ export default function Loginform({ showPassword, setShowpassword }) {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                icon={
-                  <GoEyeClosed
-                    className="cursor-pointer"
-                    size={17}
-                    color="blue"
-                    onClick={() => setShowpassword(!showPassword)}
-                  />
-                }
+                icon={passwordIcon}
               />
               <p className="ml-2 text-red-400 font-Inter">{errors?.password}</p>
             </div>
           </div>
           <div className="flex flex-col my-3">
             <Typography
-              onClick={() => setShowpasswordchangeModel(true)}
+              onClick={handlePasswordChangeModelToggle}
               className=" underline-offset-2 underline text-secondary-400"
             >
               forgotten password
@@ -134,10 +138,10 @@ export default function Loginform({ showPassword, setShowpassword }) {
           </Button>
         </form>
       </Card>
-      {ShowpasswordchangeModel && (
+      {showPasswordChangeModel && (
         <Passwordchnagemodel
-          ShowpasswordchangeModel={ShowpasswordchangeModel}
-          setShowpasswordchangeModel={setShowpasswordchangeModel}
+          ShowpasswordchangeModel={showPasswordChangeModel}
+          setShowpasswordchangeModel={setShowPasswordChangeModel}
         />
       )}
     </section>

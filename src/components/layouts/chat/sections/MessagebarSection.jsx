@@ -37,7 +37,7 @@ const MessagebarSection = () => {
   }, [emojiref]);
 
   return (
-    <section className="h-[14vh] border-t border-customVogue-200 flex items-center text-white px-5">
+    <section className="h-[14vh] flex items-center text-white px-5">
       <div className="flex-1 flex items-center px-4 rounded-2xl bg-blue-gray-900 mx-4">
         <Attachmenticon className="size-8 text-customOrange-500" />
         <input
@@ -54,6 +54,7 @@ const MessagebarSection = () => {
           {showEmojiPicker && (
             <div ref={emojiref} className="absolute bottom-20 right-0">
               <EmojiPicker
+                className="!scrollbar-hidden"
                 onEmojiClick={handleEmojiPicker}
                 theme="dark"
                 autoFocusSearch={false}

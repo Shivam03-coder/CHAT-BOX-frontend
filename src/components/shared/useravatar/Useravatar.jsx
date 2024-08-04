@@ -17,7 +17,7 @@ const Useravatar = ({
 
   return (
     <div
-      className={`size-16 border-2 ${borderColor} ${backgroundColor} rounded-full font-Varela text-black text-3xl flex-center `}
+      className={`size-12 border-2 ${borderColor} ${backgroundColor} rounded-full font-Varela text-black text-3xl flex-center`}
     >
       {fisrtLetterofName}
     </div>

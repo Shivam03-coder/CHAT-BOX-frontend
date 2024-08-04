@@ -10,6 +10,16 @@ body {
   color: #333;
   width: 100%;
   min-height: 100vh;
+  overflow: hidden;
+  scrollbar-width: none;
+}
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none; 
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
 }
 
 .container {
