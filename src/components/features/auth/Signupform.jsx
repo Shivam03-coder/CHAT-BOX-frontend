@@ -7,9 +7,10 @@ import { useDispatch } from "react-redux";
 import { setUsercredentials } from "../../../redux/state/userState";
 import { LoadingSpinner } from "../../shared/spinners/LoadingSpinner";
 import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import { useLocation } from "react-router-dom";
 import { ScaleAnimation } from "../../animations";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const initialValues = {
   fullname: "",
@@ -29,8 +30,6 @@ export function Signupform({ showPassword, setShowpassword }) {
     ScaleAnimation("#signUpcard");
   }, [location]);
 
-  
-
   // FORM SUBMISSION
 
   const { errors, handleChange, values, handleSubmit } = useFormik({
@@ -44,17 +43,17 @@ export function Signupform({ showPassword, setShowpassword }) {
         const { message, status, user } = response;
 
         if (user && status === "success") {
-          action.resetForm();
+          toast.success(message);
 
           dispatch(setUsercredentials(user));
 
-          window.location.reload();
+          action.resetForm();
 
-          alert(message);
+          window.location.reload();
         }
       } catch (error) {
         if (error.data && error.data.status === "failed") {
-          alert(error.data.message);
+          toast.error(error.data.message);
           action.resetForm();
         }
       }

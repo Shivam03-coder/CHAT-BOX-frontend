@@ -25,10 +25,10 @@ const userQuery = Apiservices.injectEndpoints({
       }),
     }),
     changePassword: build.mutation({
-      query: (newpassword) => ({
-        url: "//user-passwordreset",
+      query: (userinfo) => ({
+        url: "/userpasswordchange",
         method: "POST",
-        body: newpassword,
+        body: userinfo,
         headers,
       }),
     }),

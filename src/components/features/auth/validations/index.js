@@ -15,6 +15,4 @@ export const LoginSchema = Yup.object({
   password: Yup.string().required("Password is required"),
 });
 
-export const passwordChangeSchema = Yup.object({
-  password: Yup.string().required("Password is required"),
-});
+

@@ -46,7 +46,7 @@ export const privateRoutes = [
     element: Publicprofilepage,
   },
   {
-    path: "/chat/:id",
+    path: "/chat",
     element: Chatpage,
   },
 ];

@@ -4,11 +4,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { LoginSchema } from "./validations";
 import { useLoginUserMutation } from "../../../redux/endpoints/userauth";
-import { useSelector } from "react-redux";
-import { useMemo } from "react";
 import { LoadingSpinner } from "../../shared/spinners/LoadingSpinner";
 import { ScaleAnimation } from "../../animations";
 import { useGSAP } from "@gsap/react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
+import Passwordchnagemodel from "./ChangepPasswordmodel";
 
 const initialValues = {
   email: "",
@@ -18,7 +20,9 @@ const initialValues = {
 export default function Loginform({ showPassword, setShowpassword }) {
   const [LoginUser, { isLoading }] = useLoginUserMutation();
 
-  const Navigate = useNavigate();
+  const [ShowpasswordchangeModel, setShowpasswordchangeModel] = useState(false);
+
+  const navigate = useNavigate();
 
   const location = useLocation();
 
@@ -26,10 +30,6 @@ export default function Loginform({ showPassword, setShowpassword }) {
   useGSAP(() => {
     ScaleAnimation("#loginCard");
   }, [location]);
-
-  const { Registerd_User_info } = useSelector((state) => state.user);
-
-  const Userid = useMemo(() => Registerd_User_info?._id, [Registerd_User_info]);
 
   const { errors, handleChange, values, handleSubmit } = useFormik({
     initialValues,
@@ -39,94 +39,107 @@ export default function Loginform({ showPassword, setShowpassword }) {
         const response = await LoginUser(userinfo).unwrap();
 
         const { message, status } = response;
-        console.log("🚀 ~ onSubmit: ~ status:", status);
 
         if (status === "success") {
           action.resetForm();
-          Navigate(`/chat/${Userid}`);
+
+          toast.success(message);
+
+          navigate(`/chat`);
+
+          window.location.reload();
         }
       } catch (error) {
-        console.log(error);
+        if (error.data.status === "failed") {
+          toast.error(error.data.message);
+        }
       }
     },
   });
 
   return (
-    <Card
-      id="loginCard"
-      className="backdrop-blur-2xl !text-white p-5"
-      color="transparent"
-      shadow={false}
-    >
-      <Typography className="text-center" variant="h3">
-        LOGIN
-      </Typography>
-      <form
-        onSubmit={handleSubmit}
-        className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
+    <section>
+      <Card
+        id="loginCard"
+        className="backdrop-blur-2xl !text-white p-5"
+        color="transparent"
+        shadow={false}
       >
-        <div className="mb-1 flex flex-col gap-6">
-          <Typography variant="h6" className="-mb-3">
-            Your Email
-          </Typography>
-          <div className="space-y-2">
-            <Input
-              size="lg"
-              placeholder="name@mail.com"
-              name="email"
-              value={values.email}
-              onChange={handleChange}
-              className=" !border-t-white text-lg text-white focus:!border-secondary-300"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-            />
-            <p className="ml-2 text-red-400 font-Inter">{errors?.email}</p>
-          </div>
-          <Typography variant="h6" className="-mb-3">
-            Password
-          </Typography>
-          <div className="space-y-2">
-            <Input
-              type={showPassword ? "text" : "password"}
-              size="lg"
-              placeholder="********"
-              name="password"
-              value={values.password}
-              onChange={handleChange}
-              className=" !border-t-white text-lg text-white focus:!border-secondary-300"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-              icon={
-                <GoEyeClosed
-                  className="cursor-pointer"
-                  size={17}
-                  color="blue"
-                  onClick={() => setShowpassword(!showPassword)}
-                />
-              }
-            />
-            <p className="ml-2 text-red-400 font-Inter">{errors?.password}</p>
-          </div>
-        </div>
-        <div className="flex flex-col my-3">
-          <a
-            onClick={() => Navigate("/change-password")}
-            className=" underline-offset-2 underline text-secondary-400"
-            href=""
-          >
-            forgotten password
-          </a>
-        </div>
-        <Button
-          type="submit"
-          className="mt-6  flex-center bg-secondary-400 text-xl"
-          fullWidth
+        <Typography className="text-center" variant="h3">
+          LOGIN
+        </Typography>
+        <form
+          onSubmit={handleSubmit}
+          className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
         >
-          {isLoading ? <LoadingSpinner /> : "LOG IN"}
-        </Button>
-      </form>
-    </Card>
+          <div className="mb-1 flex flex-col gap-6">
+            <Typography variant="h6" className="-mb-3">
+              Your Email
+            </Typography>
+            <div className="space-y-2">
+              <Input
+                size="lg"
+                placeholder="name@mail.com"
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+                className=" !border-t-white text-lg text-white focus:!border-secondary-300"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+              />
+              <p className="ml-2 text-red-400 font-Inter">{errors?.email}</p>
+            </div>
+            <Typography variant="h6" className="-mb-3">
+              Password
+            </Typography>
+            <div className="space-y-2">
+              <Input
+                type={showPassword ? "text" : "password"}
+                size="lg"
+                placeholder="********"
+                name="password"
+                value={values.password}
+                onChange={handleChange}
+                className=" !border-t-white text-lg text-white focus:!border-secondary-300"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+                icon={
+                  <GoEyeClosed
+                    className="cursor-pointer"
+                    size={17}
+                    color="blue"
+                    onClick={() => setShowpassword(!showPassword)}
+                  />
+                }
+              />
+              <p className="ml-2 text-red-400 font-Inter">{errors?.password}</p>
+            </div>
+          </div>
+          <div className="flex flex-col my-3">
+            <Typography
+              onClick={() => setShowpasswordchangeModel(true)}
+              className=" underline-offset-2 underline text-secondary-400"
+            >
+              forgotten password
+            </Typography>
+          </div>
+          <Button
+            type="submit"
+            className="mt-6  flex-center bg-secondary-400 text-xl"
+            fullWidth
+          >
+            {isLoading ? <LoadingSpinner /> : "LOG IN"}
+          </Button>
+        </form>
+      </Card>
+      {ShowpasswordchangeModel && (
+        <Passwordchnagemodel
+          ShowpasswordchangeModel={ShowpasswordchangeModel}
+          setShowpasswordchangeModel={setShowpasswordchangeModel}
+        />
+      )}
+    </section>
   );
 }
