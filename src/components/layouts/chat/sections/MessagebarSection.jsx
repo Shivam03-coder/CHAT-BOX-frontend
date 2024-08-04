@@ -1,31 +1,68 @@
-import { Button, IconButton } from "@material-tailwind/react";
-import React, { useRef } from "react";
-import { Attachment, Emojipicker, Sendmsgicon } from "../../../../constants";
+import { Button } from "@material-tailwind/react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import {
+  Attachmenticon,
+  Emojipickericon,
+  Sendmsgicon,
+} from "../../../../constants";
+import EmojiPicker from "emoji-picker-react";
 
 const MessagebarSection = () => {
-  const Messageref = useRef(null);
+  const [message, setMessage] = useState("");
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
-  const handleChange = () => {
-    if (Messageref.current) {
-      console.log(Messageref.current.value);
-    }
+  const emojiref = useRef();
+
+  const handleChange = (e) => {
+    setMessage(e.target.value);
   };
+
+  const handleEmojiPicker = useCallback((emoji) => {
+    setMessage((msg) => msg + emoji.emoji);
+  }, []);
+
+  const toggleEmojiPicker = useCallback(() => {
+    setShowEmojiPicker((prev) => !prev);
+  }, []);
+
+  useEffect(() => {
+    function HandleClickOutside(e) {
+      if (emojiref.current && !emojiref.current.contains(e.target)) {
+        setShowEmojiPicker(false);
+      }
+    }
+    document.addEventListener("mousedown", HandleClickOutside);
+
+    return () => document.removeEventListener("mousedown", HandleClickOutside);
+  }, [emojiref]);
+
   return (
-    <section
-      className="h-[14vh] border-t  flex-center
-     border-customVogue-200 flex items-center text-white px-5"
-    >
-      <div className="flex-1 flex items-center px-4  rounded-2xl bg-blue-gray-900 mx-4">
-        <Attachment className="size-8 text-customOrange-500" />
+    <section className="h-[14vh] border-t border-customVogue-200 flex items-center text-white px-5">
+      <div className="flex-1 flex items-center px-4 rounded-2xl bg-blue-gray-900 mx-4">
+        <Attachmenticon className="size-8 text-customOrange-500" />
         <input
           placeholder="Enter your message...."
-          className="flex-1 outline-none p-4 bg-transparent font-Inter text-lg "
-          ref={Messageref}
+          className="flex-1 outline-none p-4 bg-transparent font-Inter text-lg"
+          value={message}
           onChange={handleChange}
         />
-        <Emojipicker className="size-8 text-customYellow-300 relative left-2" />
+        <div className="relative">
+          <Emojipickericon
+            onClick={toggleEmojiPicker}
+            className="size-8 text-customYellow-300 cursor-pointer"
+          />
+          {showEmojiPicker && (
+            <div ref={emojiref} className="absolute bottom-20 right-0">
+              <EmojiPicker
+                onEmojiClick={handleEmojiPicker}
+                theme="dark"
+                autoFocusSearch={false}
+              />
+            </div>
+          )}
+        </div>
       </div>
-      <Button className=" flex-center px-3">
+      <Button className="flex-center px-3">
         <Sendmsgicon className="size-8 text-secondary-300" />
       </Button>
     </section>

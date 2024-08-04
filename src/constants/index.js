@@ -5,5 +5,5 @@ import { BsEmojiSmile } from "react-icons/bs";
 
 export const Chaticon = PiChatTeardropTextLight;
 export const Sendmsgicon = VscSend;
-export const Attachment = RiAttachmentLine;
-export const Emojipicker = BsEmojiSmile;
+export const Attachmenticon = RiAttachmentLine;
+export const Emojipickericon = BsEmojiSmile;
