@@ -22,6 +22,7 @@ export default function Loginform({ showPassword, setShowpassword }) {
   const [showPasswordChangeModel, setShowPasswordChangeModel] = useState(false);
 
   const navigate = useNavigate();
+  
   const location = useLocation();
 
   // Animation
@@ -49,7 +50,6 @@ export default function Loginform({ showPassword, setShowpassword }) {
           action.resetForm();
           toast.success(message);
           navigate(`/chat`);
-          window.location.reload();
         }
       } catch (error) {
         if (error.data.status === "failed") {

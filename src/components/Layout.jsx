@@ -1,4 +1,4 @@
-import React, { Suspense, useMemo, useState } from "react";
+import React, { Suspense, useEffect, useMemo, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { publicRoutes, privateRoutes } from "../routes/Approutes";
@@ -10,16 +10,15 @@ function Layout() {
     (state) => state.user
   );
 
+
+
   const Userid = useMemo(() => Registerd_User_info?._id, [Registerd_User_info]);
 
   return (
     <Suspense fallback={<Apploading />}>
       <Routes>
         {isUserAuthenticated ? (
-          <Route
-            path="/"
-            element={<Navigate to={`/chat`} replace />}
-          />
+          <Route path="/" element={<Navigate to={`/chat`} replace />} />
         ) : (
           <Route path="/" element={<Navigate to="/auth" replace />} />
         )}
