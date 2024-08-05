@@ -6,13 +6,7 @@ import Apploading from "./shared/loaders/Apploading";
 import PrivateRoute from "../routes/PrivateRoute";
 
 function Layout() {
-  const { isUserAuthenticated, Registerd_User_info } = useSelector(
-    (state) => state.user
-  );
-
-
-
-  const Userid = useMemo(() => Registerd_User_info?._id, [Registerd_User_info]);
+  const { isUserAuthenticated } = useSelector((state) => state.user);
 
   return (
     <Suspense fallback={<Apploading />}>
@@ -49,10 +43,7 @@ function Layout() {
         <Route
           path="*"
           element={
-            <Navigate
-              to={isUserAuthenticated ? `/chat/${Userid}` : "/auth"}
-              replace
-            />
+            <Navigate to={isUserAuthenticated ? `/chat` : "/auth"} replace />
           }
         />
       </Routes>

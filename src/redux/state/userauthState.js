@@ -2,9 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import Cookie from "js-cookie";
 
 const initialState = {
-  Registerd_User_info: localStorage.getItem("userInfo")
-    ? JSON.parse(localStorage.getItem("userInfo"))
-    : null,
+  UserRegisterd: localStorage.getItem("userInfo") ? true : false,
   isUserAuthenticated: Cookie.get("isUserAuthenticated")
     ? Cookie.get("isUserAuthenticated")
     : null,
@@ -15,7 +13,7 @@ export const userReducer = createSlice({
   initialState,
   reducers: {
     setUsercredentials: (state, action) => {
-      state.Registerd_User_info = action.payload;
+      state.UserRegisterd = action.payload;
       localStorage.setItem("userInfo", JSON.stringify(action.payload));
     },
 
@@ -30,7 +28,7 @@ export const userReducer = createSlice({
     },
 
     clearUsercredentials: (state, action) => {
-      state.Registerd_User_info = null;
+      state.UserRegisterd = false;
       localStorage.removeItem("userInfo");
     },
   },

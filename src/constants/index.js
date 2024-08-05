@@ -5,9 +5,10 @@ import { BsEmojiSmile } from "react-icons/bs";
 import { CiLogout } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
 
-export const Chaticon = PiChatTeardropTextLight;
-export const Sendmsgicon = VscSend;
-export const Attachmenticon = RiAttachmentLine;
-export const Emojipickericon = BsEmojiSmile;
-export const LogOuticon = CiLogout;
-export const Profileicon = CgProfile;
+export const ChatIcon = PiChatTeardropTextLight;
+export const SendMsgIcon = VscSend;
+export const AttachmentIcon = RiAttachmentLine;
+export const EmojiPickerIcon = BsEmojiSmile;
+export const LogoutIcon = CiLogout;
+export const ProfileIcon = CgProfile;
+

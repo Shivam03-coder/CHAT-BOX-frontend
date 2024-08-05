@@ -1,8 +1,8 @@
 import React from "react";
 import EmptychatSection from "./sections/EmptychatSection";
-import useMediaquery from "../../../hooks/useMediaQuerry";
 import ContactListSection from "./sections/ContactListSection";
 import ChatContainer from "./ChatContainer";
+import { useMediaquery } from "../../../hooks/useMediaQuerry";
 
 const MainChatContent = () => {
   const isMobileview = useMediaquery(720);

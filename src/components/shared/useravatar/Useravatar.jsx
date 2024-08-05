@@ -1,25 +1,24 @@
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 
-const Useravatar = ({
-  borderColor = "border-secondary-500",
-  backgroundColor = "bg-blue-500",
-}) => {
-  const { Registerd_User_info } = useSelector((state) => state.user);
+const Useravatar = ({ size }) => {
+  const { userdata } = useSelector((state) => state.userinfo);
+  const { userAvatarprops } = useSelector((state) => state.userinfo);
 
-  const fisrtLetterofName = useMemo(() => {
-    if (Registerd_User_info) {
-      const { fullname } = Registerd_User_info;
-      const firstletter = fullname.slice(0, 1);
-      return firstletter;
+  const firstLetterOfName = useMemo(() => {
+    if (userdata) {
+      const { fullname } = userdata;
+      return fullname.charAt(0);
     }
-  }, [Registerd_User_info]);
+    return "";
+  }, [userdata]);
 
   return (
     <div
-      className={`size-12 border-2 ${borderColor} ${backgroundColor} rounded-full font-Varela text-black text-3xl flex-center`}
+      className={`${size} border-2 border-black rounded-full font-Varela text-black text-3xl flex-center`}
+      style={{ backgroundColor: userAvatarprops?.backgroundColor }}
     >
-      {fisrtLetterofName}
+      {firstLetterOfName || "X"}
     </div>
   );
 };

@@ -5,21 +5,21 @@ import { useSelector } from "react-redux";
 
 function Authpage() {
   const user = false;
-  const { Registerd_User_info } = useSelector((state) => state.user);
+  const { UserRegisterd } = useSelector((state) => state.user);
 
   const [isuserRegistered, setIsuserRegistered] = useState(
-    Registerd_User_info ? true : false
+    UserRegisterd ? true : false
   );
 
   const [showPassword, setShowpassword] = useState(false);
 
   useEffect(() => {
-    if (Registerd_User_info) {
+    if (UserRegisterd) {
       setIsuserRegistered(true);
     } else {
       setIsuserRegistered(false);
     }
-  }, [Registerd_User_info, isuserRegistered]);
+  }, [UserRegisterd, isuserRegistered]);
   return (
     <>
       <div className="flex-center h-screen !text-white  place-items-center">

@@ -1,9 +1,9 @@
 import { Button } from "@material-tailwind/react";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
-  Attachmenticon,
-  Emojipickericon,
-  Sendmsgicon,
+  AttachmentIcon,
+  EmojiPickerIcon,
+  SendMsgIcon,
 } from "../../../../constants";
 import EmojiPicker from "emoji-picker-react";
 
@@ -39,7 +39,7 @@ const MessagebarSection = () => {
   return (
     <section className="h-[14vh] flex items-center text-white px-5">
       <div className="flex-1 flex items-center px-4 rounded-2xl bg-blue-gray-900 mx-4">
-        <Attachmenticon className="size-8 text-customOrange-500" />
+        <AttachmentIcon className="size-8 text-customOrange-500" />
         <input
           placeholder="Enter your message...."
           className="flex-1 outline-none p-4 bg-transparent font-Inter text-lg"
@@ -47,7 +47,7 @@ const MessagebarSection = () => {
           onChange={handleChange}
         />
         <div className="relative">
-          <Emojipickericon
+          <EmojiPickerIcon
             onClick={toggleEmojiPicker}
             className="size-8 text-customYellow-300 cursor-pointer"
           />
@@ -64,7 +64,7 @@ const MessagebarSection = () => {
         </div>
       </div>
       <Button className="flex-center px-3">
-        <Sendmsgicon className="size-8 text-secondary-300" />
+        <SendMsgIcon className="size-8 text-secondary-300" />
       </Button>
     </section>
   );
