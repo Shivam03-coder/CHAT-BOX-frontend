@@ -40,6 +40,15 @@ const userQuery = Apiservices.injectEndpoints({
         credentials: "include",
       }),
     }),
+    userContactsList: build.mutation({
+      query: (searchedItem) => ({
+        url: "/usercontacts",
+        method: "POST",
+        headers,
+        body: searchedItem,
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
@@ -48,4 +57,5 @@ export const {
   useLoginUserMutation,
   useChangePasswordMutation,
   useLogoutUserMutation,
+  useUserContactsListMutation,
 } = userQuery;
