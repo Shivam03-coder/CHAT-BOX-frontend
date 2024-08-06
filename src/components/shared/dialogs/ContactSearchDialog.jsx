@@ -11,11 +11,13 @@ import { ChatIcon } from "../../../constants";
 import { useUserContactsListMutation } from "../../../redux/endpoints/userauth";
 
 import debounce from "lodash.debounce";
+import SearchedList from "./SearchedList";
 
 function ContactSearchDialog({ showDialog, setShowDialog }) {
   const [SearchedItem, setSearchedItem] = useState("");
   const [searchedContactList, setSearchedContactList] = useState([]);
-  const [getContactList, { isLoading, error }] = useUserContactsListMutation();
+
+  const [getContactList, { isLoading }] = useUserContactsListMutation();
 
   const toggleDialog = useCallback(() => setShowDialog((prev) => !prev), []);
 
@@ -26,7 +28,10 @@ function ContactSearchDialog({ showDialog, setShowDialog }) {
           const response = await getContactList({
             SerachedcontactInfo: query,
           }).unwrap();
-          console.log("🚀 ~ debounce ~ response:", response);
+
+          if (response.status === "success") {
+            setSearchedContactList(response.data);
+          }
         } catch (err) {
           console.error("Failed to fetch contacts:", err);
 
@@ -67,7 +72,11 @@ function ContactSearchDialog({ showDialog, setShowDialog }) {
         />
       </DialogHeader>
       <DialogBody>
-        {isLoading && <div>Loading...</div>}
+        {isLoading && (
+          <div className="flex-center">
+            <ChatIcon className="size-16 text-customYellow-300" />
+          </div>
+        )}
         {searchedContactList.length === 0 && !isLoading && (
           <div className="flex justify-center p-3 gap-5 items-center">
             <ChatIcon className="size-12 text-secondary-300" />
@@ -75,6 +84,9 @@ function ContactSearchDialog({ showDialog, setShowDialog }) {
               CHAT-BOX
             </Typography>
           </div>
+        )}
+        {searchedContactList.length !== 0 && (
+          <SearchedList searchedContactList={searchedContactList} />
         )}
       </DialogBody>
     </Dialog>
