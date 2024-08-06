@@ -22,7 +22,7 @@ export default function Loginform({ showPassword, setShowpassword }) {
   const [showPasswordChangeModel, setShowPasswordChangeModel] = useState(false);
 
   const navigate = useNavigate();
-  
+
   const location = useLocation();
 
   // Animation
@@ -31,11 +31,11 @@ export default function Loginform({ showPassword, setShowpassword }) {
   }, [location]);
 
   const handlePasswordToggle = useCallback(() => {
-    setShowpassword(prev => !prev);
+    setShowpassword((prev) => !prev);
   }, [setShowpassword]);
 
   const handlePasswordChangeModelToggle = useCallback(() => {
-    setShowPasswordChangeModel(prev => !prev);
+    setShowPasswordChangeModel((prev) => !prev);
   }, []);
 
   const { errors, handleChange, values, handleSubmit } = useFormik({
@@ -48,8 +48,8 @@ export default function Loginform({ showPassword, setShowpassword }) {
 
         if (status === "success") {
           action.resetForm();
+          navigate("/chat");
           toast.success(message);
-          navigate(`/chat`);
         }
       } catch (error) {
         if (error.data.status === "failed") {

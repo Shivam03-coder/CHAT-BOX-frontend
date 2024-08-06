@@ -32,6 +32,14 @@ const userQuery = Apiservices.injectEndpoints({
         headers,
       }),
     }),
+    logoutUser: build.mutation({
+      query: () => ({
+        url: "/userlogout",
+        method: "POST",
+        headers,
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
@@ -39,4 +47,5 @@ export const {
   useSignupUserMutation,
   useLoginUserMutation,
   useChangePasswordMutation,
+  useLogoutUserMutation,
 } = userQuery;

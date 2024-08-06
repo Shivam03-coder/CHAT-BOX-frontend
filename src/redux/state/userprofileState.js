@@ -5,7 +5,9 @@ const initialState = {
     ? JSON.parse(localStorage.getItem("userInfo"))
     : null,
   userAvatarprops: {
-    backgroundColor: "#ffff00",
+    backgroundColor: localStorage.getItem("avatarbgColor")
+      ? localStorage.getItem("avatarbgColor")
+      : "#ffff00",
   },
 };
 
@@ -14,11 +16,14 @@ export const userprofileState = createSlice({
   initialState,
   reducers: {
     setUserdata: (state, action) => {
-      state.userdata.fullname = action.payload;
-      localStorage.setItem("userInfo", JSON.stringify(state.userdata));
+      if (state.userdata) {
+        state.userdata.fullname = action.payload;
+        localStorage.setItem("userInfo", JSON.stringify(state.userdata));
+      }
     },
     setUserAvatarprops: (state, action) => {
       state.userAvatarprops.backgroundColor = action.payload;
+      localStorage.setItem("avatarbgColor", action.payload);
     },
   },
 });

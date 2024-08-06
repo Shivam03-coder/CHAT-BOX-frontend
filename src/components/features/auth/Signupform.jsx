@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { RegisterSchema } from "./validations";
 import { useSignupUserMutation } from "../../../redux/endpoints/userauth";
 import { useDispatch } from "react-redux";
-import { setUsercredentials } from "../../../redux/state/userState";
+import { setUsercredentials } from "../../../redux/state/userauthState";
 import { LoadingSpinner } from "../../shared/spinners/LoadingSpinner";
 import { useGSAP } from "@gsap/react";
 import { useLocation } from "react-router-dom";
