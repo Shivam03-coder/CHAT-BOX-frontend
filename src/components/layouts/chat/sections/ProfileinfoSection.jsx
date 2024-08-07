@@ -80,7 +80,7 @@ const ProfileinfoSection = () => {
         <Typography variant="h6" className="uppercase">
           {Userdata.fullname}
         </Typography>
-        <Typography variant="p" className="text-xs">
+        <Typography  className="text-xs">
           {Userdata.email}
         </Typography>
       </div>

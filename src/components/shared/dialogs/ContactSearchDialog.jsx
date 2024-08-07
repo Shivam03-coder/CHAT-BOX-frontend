@@ -86,7 +86,7 @@ function ContactSearchDialog({ showDialog, setShowDialog }) {
           </div>
         )}
         {searchedContactList.length !== 0 && (
-          <SearchedList searchedContactList={searchedContactList} />
+          <SearchedList setShowDialog={setShowDialog} searchedContactList={searchedContactList} />
         )}
       </DialogBody>
     </Dialog>

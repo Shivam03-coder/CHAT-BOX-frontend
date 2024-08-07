@@ -10,7 +10,7 @@ const ContactListSection = ({ isMobileview }) => {
   return (
     <>
       <section
-        className="min-h-screen overflow-y-auto relative w-[300px]
+        className="min-h-screen overflow-y-auto relative min-w-[330px]
      scroll-smooth  bg-black border-r border-customVogue-200 text-white hidden lg:block "
       >
         <div className="flex justify-center items-center gap-3 p-3">

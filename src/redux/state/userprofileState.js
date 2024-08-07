@@ -11,7 +11,7 @@ const initialState = {
   },
 };
 
-export const userprofileState = createSlice({
+export const userprofileSlice = createSlice({
   name: "userprofileinfo",
   initialState,
   reducers: {
@@ -28,4 +28,4 @@ export const userprofileState = createSlice({
   },
 });
 
-export const { setUserdata, setUserAvatarprops } = userprofileState.actions;
+export const { setUserdata, setUserAvatarprops } = userprofileSlice.actions;

@@ -2,7 +2,9 @@ import { Button, Input } from "@material-tailwind/react";
 import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserdata } from "../../../../redux/state/userprofileState";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UserinfoSection = () => {
   const { userdata } = useSelector((state) => state.userinfo);
@@ -14,7 +16,7 @@ const UserinfoSection = () => {
 
   const handleUsername = useCallback(() => {
     dispatch(setUserdata(Username));
-
+    toast.success("Profile Updated Sucessfully");
     navigate("/chat");
   }, [dispatch, Username]);
 
