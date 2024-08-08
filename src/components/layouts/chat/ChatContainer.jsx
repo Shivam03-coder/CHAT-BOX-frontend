@@ -7,10 +7,10 @@ import { ChatIcon } from "../../../constants";
 import { Typography } from "@material-tailwind/react";
 
 const ChatContainer = () => {
-  const { selectedChat } = useSelector((state) => state.chats);
+  const { selectedChatData } = useSelector((state) => state.chats);
   return (
     <>
-      {selectedChat ? (
+      {selectedChatData ? (
         <section className="fixed top-0 h-screen w-full flex flex-col md:static md:flex-1 bg-black">
           <ChatheaderSection />
           <UserchatsSection />

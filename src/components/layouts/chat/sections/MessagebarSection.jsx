@@ -6,11 +6,16 @@ import {
   SendMsgIcon,
 } from "../../../../constants";
 import EmojiPicker from "emoji-picker-react";
+import { useSelector } from "react-redux";
 
 const MessagebarSection = () => {
   const [message, setMessage] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-
+  const { selectedChatType, selectedChatData } = useSelector(
+    (state) => state.chats
+  );
+  const { socket } = useSelector((state) => state.socket);
+  const userInfo = useSelector((state) => state.userinfo.userdata);
   const emojiref = useRef();
 
   const handleChange = (e) => {
@@ -21,23 +26,36 @@ const MessagebarSection = () => {
     setMessage((msg) => msg + emoji.emoji);
   }, []);
 
+  const handleSendMessage = () => {
+    if (selectedChatType === "contact") {
+      socket.emit("sendMessage", {
+        sender: userInfo._id,
+        receiver: selectedChatData._id,
+        content: message,
+        messageType: "text",
+        fileUrl: undefined,
+      });
+    }
+    setMessage("");
+  };
+
   const toggleEmojiPicker = useCallback(() => {
     setShowEmojiPicker((prev) => !prev);
   }, []);
 
   useEffect(() => {
-    function HandleClickOutside(e) {
+    const handleClickOutside = (e) => {
       if (emojiref.current && !emojiref.current.contains(e.target)) {
         setShowEmojiPicker(false);
       }
-    }
-    document.addEventListener("mousedown", HandleClickOutside);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
 
-    return () => document.removeEventListener("mousedown", HandleClickOutside);
-  }, [emojiref]);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
-    <section className="h-[14vh] flex items-center text-white px-5">
+    <section className="h-[14vh] flex items-center justify-center text-white pr-3">
       <div className="flex-1 flex items-center px-4 rounded-2xl bg-blue-gray-900 mx-4">
         <AttachmentIcon className="size-8 text-customOrange-500" />
         <input
@@ -63,7 +81,7 @@ const MessagebarSection = () => {
           )}
         </div>
       </div>
-      <Button className="flex-center px-3">
+      <Button onClick={handleSendMessage} className="flex-center px-3">
         <SendMsgIcon className="size-8 text-secondary-300" />
       </Button>
     </section>

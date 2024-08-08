@@ -2,21 +2,24 @@ import { Typography } from "@material-tailwind/react";
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { getRandomColor } from "../../../utils/getRandomcolorCode";
 import { useDispatch } from "react-redux";
-import { setSelelctedChat } from "../../../redux/state/chatState";
+import {
+  setSelectedChatData,
+  setSelectedChatType,
+} from "../../../redux/state/chatState";
 
 const SearchedList = ({ setShowDialog, searchedContactList }) => {
   const [updateUser, setUpdateUser] = useState([]);
-
   const dispatch = useDispatch();
 
   const handleSelectedUser = useCallback(
     (contact) => {
       if (contact) {
-        dispatch(setSelelctedChat(contact));
+        dispatch(setSelectedChatData(contact));
+        dispatch(setSelectedChatType("contact"));
         setShowDialog(false);
       }
     },
-    [dispatch]
+    [dispatch, setShowDialog]
   );
 
   useEffect(() => {

@@ -48,8 +48,10 @@ export default function Loginform({ showPassword, setShowpassword }) {
 
         if (status === "success") {
           action.resetForm();
-          navigate("/chat");
+
           toast.success(message);
+
+          navigate("/chat");
         }
       } catch (error) {
         if (error.data.status === "failed") {

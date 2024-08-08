@@ -1,20 +1,45 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  selectedChat: null,
+  selectedChatType: undefined,
+  selectedChatData: undefined,
+  selectedChatMessages: [],
 };
 
 export const chatSlice = createSlice({
   name: "chats",
   initialState,
   reducers: {
-    setSelelctedChat: (state, action) => {
-      state.selectedChat = action.payload;
+    setSelectedChatData: (state, action) => {
+      state.selectedChatData = action.payload;
     },
-    removeSelectedChat: (state) => {
-      state.selectedChat = null;
+    closeSelectedChat: (state) => {
+      state.selectedChatData = null;
+      state.selectedChatType = undefined;
+      state.selectedChatMessages = [];
+    },
+    setSelectedChatType: (state, action) => {
+      state.selectedChatType = action.payload;
+    },
+    setSelectedChatMessages: (state, action) => {
+      state.selectedChatMessages = action.payload;
+    },
+    addMessageToSelectedChat: (state, action) => {
+      state.selectedChatMessages.push(action.payload);
+    },
+    clearSelectedChatMessages: (state) => {
+      state.selectedChatMessages = [];
     },
   },
 });
 
-export const { setSelelctedChat, removeSelectedChat } = chatSlice.actions;
+export const {
+  setSelectedChatData,
+  setSelectedChatType,
+  closeSelectedChat,
+  setSelectedChatMessages,
+  addMessageToSelectedChat,
+  clearSelectedChatMessages,
+} = chatSlice.actions;
+
+export default chatSlice.reducer;
