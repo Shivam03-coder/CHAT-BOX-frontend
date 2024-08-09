@@ -1,4 +1,11 @@
 import moment from "moment";
+import { useGetMsgsMutation } from "../../../../redux/endpoints/userauth";
+import { useEffect, useMemo } from "react";
+import {
+  addMessageToSelectedChat,
+  clearSelectedChatMessages,
+} from "../../../../redux/state/chatState";
+import { useDispatch } from "react-redux";
 
 const RenderMessage = ({
   scrollScreenRef,
@@ -6,6 +13,37 @@ const RenderMessage = ({
   selectedChatData,
   selectedChatMessages,
 }) => {
+  const [getMsgs, { isLoading }] = useGetMsgsMutation();
+
+  const dispatch = useDispatch();
+
+  const id = useMemo(
+    () => ({
+      id: selectedChatData._id || "",
+    }),
+    [selectedChatData]
+  );
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        if (selectedChatType === "contact") {
+          const response = await getMsgs(id).unwrap();
+          if (response.status === "success") {
+            dispatch(addMessageToSelectedChat(response.data));
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchMessages();
+    return () => {
+      clearSelectedChatMessages();
+    };
+  }, [selectedChatType, selectedChatData, selectedChatMessages]);
+
   const renderMessages = () => {
     let lastDate = null;
     return selectedChatMessages.map((message) => {
@@ -26,17 +64,17 @@ const RenderMessage = ({
   };
 
   const renderDMMessages = (message) => {
-    const isSender = message.sender._id === selectedChatData._id;
+    const isSender = message.sender._id || message.sender === selectedChatData._id;
     return (
       <div
         className={`flex items-center ${
           isSender ? "justify-start" : "justify-end"
         } my-2`}
       >
-        {isSender && (
+        {isSender && ( 
           <div
             style={{
-              backgroundColor: isSender
+              backgroundColor: isSender 
                 ? selectedChatData.avatarColor
                 : "#D3D3D3",
               color: "black",

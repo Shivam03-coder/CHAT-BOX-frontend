@@ -25,7 +25,7 @@ export const chatSlice = createSlice({
       state.selectedChatMessages = action.payload;
     },
     addMessageToSelectedChat: (state, action) => {
-      state.selectedChatMessages.push(action.payload);
+      state.selectedChatMessages = action.payload;
     },
     clearSelectedChatMessages: (state) => {
       state.selectedChatMessages = [];

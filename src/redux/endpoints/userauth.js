@@ -50,6 +50,15 @@ const userQuery = Apiservices.injectEndpoints({
         credentials: "include",
       }),
     }),
+    getMsgs: build.mutation({
+      query: (id) => ({
+        url: "/getmsgs",
+        method: "POST",
+        headers,
+        body: id,
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
@@ -59,4 +68,5 @@ export const {
   useChangePasswordMutation,
   useLogoutUserMutation,
   useUserContactsListMutation,
+  useGetMsgsMutation,
 } = userQuery;
