@@ -100,16 +100,6 @@ export default withMT({
     },
 
     extend: {
-      utilities: {
-        ".scrollbar-hidden": {
-          "-ms-overflow-style": "none",
-          "scrollbar-width": "none",
-          "&::-webkit-scrollbar": {
-            width: "0px",
-            background: "transparent",
-          },
-        },
-      },
       boxShadow: {
         "3xl": "-1px 34px 47px -29px rgb(32 32 32 / 100%)",
         "4xl": " 0vw 0vw 0.5vw 0vw rgb(32 32 32 / 20%)",

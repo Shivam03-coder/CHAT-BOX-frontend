@@ -15,8 +15,11 @@ const UserchatsSection = () => {
 
   return (
     <section
-      className="ChatConatiner
-w-full relative flex-1"
+      className="w-full overflow-y-auto relative flex-1"
+      style={{
+        scrollbarWidth: 'none', 
+        msOverflowStyle: 'none', 
+      }}
     >
       <RenderMessage
         scrollScreenRef={scrollScreenRef}

@@ -17,19 +17,27 @@ const RenderMessage = ({
 
   const dispatch = useDispatch();
 
-  const id = useMemo(
+  // const id = useMemo(
+  //   () => ({
+  //     id: selectedChatData._id || "",
+  //   }),
+  //   [selectedChatData]
+  // );
+  const contactSelcted = useMemo(
     () => ({
       id: selectedChatData._id || "",
+      name: selectedChatData.userFirstChar || "",
     }),
-    [selectedChatData]
+    []
   );
 
   useEffect(() => {
     const fetchMessages = async () => {
       try {
         if (selectedChatType === "contact") {
-          const response = await getMsgs(id).unwrap();
+          const response = await getMsgs({ id: contactSelcted.id }).unwrap();
           if (response.status === "success") {
+            console.log(response.data);
             dispatch(addMessageToSelectedChat(response.data));
           }
         }
@@ -42,7 +50,7 @@ const RenderMessage = ({
     return () => {
       clearSelectedChatMessages();
     };
-  }, [selectedChatType, selectedChatData, selectedChatMessages]);
+  }, [selectedChatType, selectedChatData]);
 
   const renderMessages = () => {
     let lastDate = null;
@@ -51,7 +59,7 @@ const RenderMessage = ({
       const showDate = messageDate !== lastDate;
       lastDate = messageDate;
       return (
-        <div className="scrollbar-hidden" key={message._id}>
+        <div key={message._id}>
           {showDate && (
             <div className="text-center text-secondary-300  my-3">
               {moment(message.timestamps).format("LL")}
@@ -64,28 +72,27 @@ const RenderMessage = ({
   };
 
   const renderDMMessages = (message) => {
-    const isSender = message.sender._id || message.sender === selectedChatData._id;
+    const isSender = message.sender === selectedChatData._id;
     return (
       <div
-        className={`flex items-center ${
+        className={` flex items-center ${
           isSender ? "justify-start" : "justify-end"
-        } my-2`}
+        } my-2 `}
       >
-        {isSender && ( 
+        {isSender && (
           <div
             style={{
-              backgroundColor: isSender 
+              backgroundColor: isSender
                 ? selectedChatData.avatarColor
                 : "#D3D3D3",
               color: "black",
             }}
             className="flex-shrink-0 w-12 h-12 text-xl uppercase font-semibold flex items-center justify-center rounded-full mr-2"
           >
-            {message.sender.fullname.charAt(0)}
+            {contactSelcted.name}
           </div>
         )}
         <div
-          style={{}}
           className={`max-w-[75%] rounded-3xl text-black py-2 px-4 relative ${
             isSender
               ? "bg-customGreen-300 text-black"
@@ -102,7 +109,7 @@ const RenderMessage = ({
   };
 
   return (
-    <div className="w-full relative overflow-y-auto scrollbar-hidden md:w-[66vw] lg:w-[70vw] mx-auto text-white p-4">
+    <div className="scrollbar-hidden w-full relative overflow-y-auto md:w-[66vw] lg:w-[70vw] mx-auto text-white p-4">
       {renderMessages()}
       <div ref={scrollScreenRef} />
     </div>
