@@ -16,7 +16,7 @@ const ChatheaderSection = () => {
   }, [dispatch]);
 
   return (
-    <section className="min-h-[10vh] bg-blue-gray-900 flex items-center text-white px-5">
+    <section className="min-h-[10vh]  bg-primary-950  flex items-center text-white px-5">
       {selectedChatType === "contact" && selectedChatData && (
         <div className="flex-1">
           <div

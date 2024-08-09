@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
 import { disconnectSocket, setSocket } from "../../../redux/state/socketState";
-import { setSelectedChatMessages } from "../../../redux/state/chatState";
+import { addMessageToSelectedChat } from "../../../redux/state/chatState";
 
 const HOST = import.meta.env.VITE_SERVER_URL;
 
@@ -33,8 +33,7 @@ const SocketContext = ({ children }) => {
           (selectedChatData._id === message.sender?._id ||
             selectedChatData._id === message.receiver?._id)
         ) {
-          console.log("🚀 ~ handleReciveMessages ~ message:", message);
-          dispatch(setSelectedChatMessages(message));
+          dispatch(addMessageToSelectedChat(message));
         }
       };
 
@@ -56,3 +55,4 @@ const SocketContext = ({ children }) => {
 };
 
 export default SocketContext;
+

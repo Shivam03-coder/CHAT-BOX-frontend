@@ -11,7 +11,7 @@ const ChatContainer = () => {
   return (
     <>
       {selectedChatData ? (
-        <section className="fixed top-0 h-screen w-full flex flex-col md:static md:flex-1 bg-black">
+        <section className="fixed bg-black top-0 h-screen w-full flex flex-col md:static md:flex-1">
           <ChatheaderSection />
           <UserchatsSection />
           <MessagebarSection />
