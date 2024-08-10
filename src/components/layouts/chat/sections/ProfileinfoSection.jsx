@@ -42,7 +42,7 @@ const ProfileinfoSection = () => {
   }, [LogoutUser]);
 
   return (
-    <section className="absolute bottom-2 left-0 h-16 w-full flex gap-2 items-center justify-center p-5">
+    <section className="absolute bottom-0 left-0 h-16 w-full flex gap-2 items-center justify-center p-5">
       <Popover
         placement="top-end"
         animate={{

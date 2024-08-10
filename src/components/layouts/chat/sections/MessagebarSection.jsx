@@ -57,7 +57,9 @@ const MessagebarSection = () => {
   return (
     <section className="h-[14vh] flex items-center justify-center  text-white pr-3">
       <div className="flex-1 flex items-center px-4 rounded-2xl bg-primary-800 mx-4">
-        <AttachmentIcon className="size-8 text-customOrange-500" />
+        <AttachmentIcon
+          className="size-8 text-customOrange-500"
+        />
         <input
           placeholder="Enter your message...."
           className="flex-1 outline-none p-4 bg-transparent font-Inter text-lg"

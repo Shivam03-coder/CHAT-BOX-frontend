@@ -13,20 +13,14 @@ const RenderMessage = ({
   selectedChatData,
   selectedChatMessages,
 }) => {
-  const [getMsgs, { isLoading }] = useGetMsgsMutation();
+  const [getMsgs] = useGetMsgsMutation();
 
   const dispatch = useDispatch();
 
-  // const id = useMemo(
-  //   () => ({
-  //     id: selectedChatData._id || "",
-  //   }),
-  //   [selectedChatData]
-  // );
   const contactSelcted = useMemo(
     () => ({
       id: selectedChatData._id || "",
-      name: selectedChatData.userFirstChar || "",
+      fullname: selectedChatData.fullname || "",
     }),
     []
   );
@@ -37,7 +31,6 @@ const RenderMessage = ({
         if (selectedChatType === "contact") {
           const response = await getMsgs({ id: contactSelcted.id }).unwrap();
           if (response.status === "success") {
-            console.log(response.data);
             dispatch(addMessageToSelectedChat(response.data));
           }
         }
@@ -89,7 +82,7 @@ const RenderMessage = ({
             }}
             className="flex-shrink-0 w-12 h-12 text-xl uppercase font-semibold flex items-center justify-center rounded-full mr-2"
           >
-            {contactSelcted.name}
+            {contactSelcted.fullname.charAt(0)}
           </div>
         )}
         <div

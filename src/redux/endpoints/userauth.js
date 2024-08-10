@@ -59,6 +59,15 @@ const userQuery = Apiservices.injectEndpoints({
         credentials: "include",
       }),
     }),
+    getContactlist: build.query({
+      query: () => ({
+        url: "/contactlist",
+        method: "GET",
+        headers,
+        credentials: "include",
+      }),
+      transformResponse: (resp) => resp.data,
+    }),
   }),
 });
 
@@ -69,4 +78,5 @@ export const {
   useLogoutUserMutation,
   useUserContactsListMutation,
   useGetMsgsMutation,
+  useGetContactlistQuery,
 } = userQuery;

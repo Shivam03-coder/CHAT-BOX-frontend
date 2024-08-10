@@ -27,7 +27,7 @@ const ChatheaderSection = () => {
               className="border-2 w-14 h-14 border-black rounded-full font-Varela text-black text-3xl flex justify-center items-center uppercase"
               style={{ backgroundColor: selectedChatData.avatarColor }}
             >
-              {selectedChatData.userFirstChar}
+              {selectedChatData.fullname.charAt(0)}
             </div>
             <Typography
               className="text-white font-Varela uppercase"

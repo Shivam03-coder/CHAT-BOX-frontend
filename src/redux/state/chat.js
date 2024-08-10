@@ -22,17 +22,17 @@ export const chatSlice = createSlice({
       state.selectedChatType = action.payload;
     },
     setSelectedChatMessages: (state, action) => {
-        const msg = action.payload;
-        const receiverId =
-          state.selectedChatType === "channels" ? msg.receiver : msg.receiver._id;
-        const senderId =
-          state.selectedChatType === "channels" ? msg.sender : msg.sender._id;
-        state.selectedChatMessages.push({
-          ...msg,
-          receiver: receiverId,
-          sender: senderId,
-        });
-      },
+      const msg = action.payload;
+      const receiverId =
+        state.selectedChatType === "channels" ? msg.receiver : msg.receiver._id;
+      const senderId =
+        state.selectedChatType === "channels" ? msg.sender : msg.sender._id;
+      state.selectedChatMessages.push({
+        ...msg,
+        receiver: receiverId,
+        sender: senderId,
+      });
+    },
     addMessageToSelectedChat: (state, action) => {
       const messages = Array.isArray(action.payload)
         ? action.payload
