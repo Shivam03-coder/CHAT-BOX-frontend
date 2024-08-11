@@ -1,5 +1,5 @@
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
-import { GoEyeClosed } from "react-icons/go";
+import { GoEyeClosed, GoEye } from "react-icons/go";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { LoginSchema } from "./validations";
@@ -9,7 +9,7 @@ import { ScaleAnimation } from "../../animations";
 import { useGSAP } from "@gsap/react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState, useCallback, useMemo, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
 import ChangepPasswordmodel from "./ChangepPasswordmodel";
 
@@ -18,17 +18,14 @@ const initialValues = {
   password: "",
 };
 
-export default function Loginform({ showPassword, setShowpassword }) {
+export default function Loginform({ showPassword, setShowPassword }) {
   const [LoginUser, { isLoading }] = useLoginUserMutation();
   const [showPasswordChangeModel, setShowPasswordChangeModel] = useState(false);
   const { userdata } = useSelector((state) => state.userinfo);
-
   const { isUserAuthenticated } = useSelector((state) => state.user);
 
   const _User_id = useMemo(() => userdata._id || "", [userdata]);
-
   const navigate = useNavigate();
-
   const location = useLocation();
 
   useGSAP(() => {
@@ -36,8 +33,8 @@ export default function Loginform({ showPassword, setShowpassword }) {
   }, [location]);
 
   const handlePasswordToggle = useCallback(() => {
-    setShowpassword((prev) => !prev);
-  }, [setShowpassword]);
+    setShowPassword((prev) => !prev);
+  }, [setShowPassword]);
 
   const handlePasswordChangeModelToggle = useCallback(() => {
     setShowPasswordChangeModel((prev) => !prev);
@@ -47,7 +44,7 @@ export default function Loginform({ showPassword, setShowpassword }) {
     if (isUserAuthenticated) {
       navigate(`/chat/${_User_id}`);
     }
-  }, [isUserAuthenticated]);
+  }, [isUserAuthenticated, navigate, _User_id]);
 
   const { errors, handleChange, values, handleSubmit } = useFormik({
     initialValues,
@@ -59,26 +56,22 @@ export default function Loginform({ showPassword, setShowpassword }) {
 
         if (status === "success") {
           action.resetForm();
-
           toast.success(message);
-
-          // window.location.reload();
         }
       } catch (error) {
-        if (error.data.status === "failed") {
+        if (error.data?.status === "failed") {
           toast.error(error.data.message);
+        } else {
+          toast.error("An unexpected error occurred.");
         }
       }
     },
   });
 
-  const passwordIcon = (
-    <GoEyeClosed
-      className="cursor-pointer"
-      size={17}
-      color="blue"
-      onClick={handlePasswordToggle}
-    />
+  const passwordIcon = showPassword ? (
+    <GoEye className="cursor-pointer" size={17} color="blue" onClick={handlePasswordToggle} />
+  ) : (
+    <GoEyeClosed className="cursor-pointer" size={17} color="blue" onClick={handlePasswordToggle} />
   );
 
   return (
@@ -107,12 +100,12 @@ export default function Loginform({ showPassword, setShowpassword }) {
                 name="email"
                 value={values.email}
                 onChange={handleChange}
-                className=" !border-t-white text-lg text-white focus:!border-secondary-300"
+                className="!border-t-white text-lg text-white focus:!border-secondary-300"
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
               />
-              <p className="ml-2 text-red-400 font-Inter">{errors?.email}</p>
+              <p className="ml-2 text-red-400 font-Inter">{errors.email}</p>
             </div>
             <Typography variant="h6" className="-mb-3">
               Password
@@ -125,26 +118,26 @@ export default function Loginform({ showPassword, setShowpassword }) {
                 name="password"
                 value={values.password}
                 onChange={handleChange}
-                className=" !border-t-white text-lg text-white focus:!border-secondary-300"
+                className="!border-t-white text-lg text-white focus:!border-secondary-300"
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
                 icon={passwordIcon}
               />
-              <p className="ml-2 text-red-400 font-Inter">{errors?.password}</p>
+              <p className="ml-2 text-red-400 font-Inter">{errors.password}</p>
             </div>
           </div>
           <div className="flex flex-col my-3">
             <Typography
               onClick={handlePasswordChangeModelToggle}
-              className=" underline-offset-2 underline text-secondary-400"
+              className="underline-offset-2 underline text-secondary-400 cursor-pointer"
             >
-              forgotten password
+              Forgotten Password
             </Typography>
           </div>
           <Button
             type="submit"
-            className="mt-6  flex-center bg-secondary-400 text-xl"
+            className="mt-6 flex-center bg-secondary-400 text-xl"
             fullWidth
           >
             {isLoading ? <LoadingSpinner /> : "LOG IN"}
