@@ -60,10 +60,9 @@ export default function Loginform({ showPassword, setShowpassword }) {
 
         if (status === "success") {
           action.resetForm();
-
+          window.location.reload();
           toast.success(message);
 
-          window.location.reload();
         }
       } catch (error) {
         if (error.data.status === "failed") {
