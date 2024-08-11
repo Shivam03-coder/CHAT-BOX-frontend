@@ -9,8 +9,9 @@ import { ScaleAnimation } from "../../animations";
 import { useGSAP } from "@gsap/react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import Passwordchnagemodel from "./ChangepPasswordmodel";
+import { useSelector } from "react-redux";
 
 const initialValues = {
   email: "",
@@ -20,12 +21,15 @@ const initialValues = {
 export default function Loginform({ showPassword, setShowpassword }) {
   const [LoginUser, { isLoading }] = useLoginUserMutation();
   const [showPasswordChangeModel, setShowPasswordChangeModel] = useState(false);
+  const { userdata } = useSelector((state) => state.userinfo);
+
+  const _User_id = useMemo(() => userdata._id || "", [userdata]);
+  console.log("🚀 ~ Loginform ~ _User_id:", _User_id)
 
   const navigate = useNavigate();
 
   const location = useLocation();
 
-  // Animation
   useGSAP(() => {
     ScaleAnimation("#loginCard");
   }, [location]);
@@ -51,7 +55,9 @@ export default function Loginform({ showPassword, setShowpassword }) {
 
           toast.success(message);
 
-          navigate("/chat");
+          navigate(`/chat/${_User_id}`);
+
+          window.location.reload();
         }
       } catch (error) {
         if (error.data.status === "failed") {

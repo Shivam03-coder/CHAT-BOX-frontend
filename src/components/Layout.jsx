@@ -7,12 +7,15 @@ import PrivateRoute from "../routes/PrivateRoute";
 
 function Layout() {
   const { isUserAuthenticated } = useSelector((state) => state.user);
+  const { userdata } = useSelector((state) => state.userinfo);
+
+  const _User_id = useMemo(() => userdata?._id || "", [userdata]);
 
   return (
     <Suspense fallback={<Apploading />}>
       <Routes>
         {isUserAuthenticated ? (
-          <Route path="/" element={<Navigate to={`/chat`} replace />} />
+          <Route path="/" element={<Navigate to={`/chat/${_User_id}`} replace />} />
         ) : (
           <Route path="/" element={<Navigate to="/auth" replace />} />
         )}
@@ -43,7 +46,10 @@ function Layout() {
         <Route
           path="*"
           element={
-            <Navigate to={isUserAuthenticated ? `/chat` : "/auth"} replace />
+            <Navigate
+              to={isUserAuthenticated ? `//chat/:userid` : "/auth"}
+              replace
+            />
           }
         />
       </Routes>
