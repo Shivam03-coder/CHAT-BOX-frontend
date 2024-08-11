@@ -11,6 +11,7 @@ const Logout = ({ LogoutUser }) => {
       const resp = await LogoutUser().unwrap();
       if (resp.status === "sucess") {
         toast.success(resp.message);
+        window.location.reload();
         naviagate("/auth");
       }
     } catch (error) {

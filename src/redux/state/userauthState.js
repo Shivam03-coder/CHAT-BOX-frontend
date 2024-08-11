@@ -4,8 +4,8 @@ import Cookie from "js-cookie";
 const initialState = {
   UserRegisterd: localStorage.getItem("userInfo") ? true : false,
   isUserAuthenticated: Cookie.get("isUserAuthenticated")
-    ? Cookie.get("isUserAuthenticated")
-    : null,
+    ? JSON.parse(Cookie.get("isUserAuthenticated"))
+    : false,
 };
 
 export const userauthSlice = createSlice({
@@ -19,19 +19,26 @@ export const userauthSlice = createSlice({
 
     setIsUserAuthenticated: (state, action) => {
       state.isUserAuthenticated = action.payload;
-      Cookie.set("isUserAuthenticated", action.payload);
+      Cookie.set("isUserAuthenticated", JSON.stringify(action.payload));
     },
 
-    clearIsUserAuthenticated: (state, action) => {
-      state.isUserAuthenticated = null;
+    clearIsUserAuthenticated: (state) => {
+      state.isUserAuthenticated = false;
       Cookie.remove("isUserAuthenticated");
     },
 
-    clearUsercredentials: (state, action) => {
+    clearUsercredentials: (state) => {
       state.UserRegisterd = false;
       localStorage.removeItem("userInfo");
     },
   },
 });
 
-export const { clearUsercredentials, setUsercredentials } = userauthSlice.actions;
+export const {
+  clearUsercredentials,
+  setUsercredentials,
+  setIsUserAuthenticated,
+  clearIsUserAuthenticated,
+} = userauthSlice.actions;
+
+export default userauthSlice.reducer;

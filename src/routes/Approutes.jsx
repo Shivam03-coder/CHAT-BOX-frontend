@@ -6,8 +6,6 @@ const Publicprofilepage = lazy(() =>
   import("../components/pages/Publicprofilepage")
 );
 const Chatpage = lazy(() => import("../components/pages/Chatpage"));
-const Errorpage = lazy(() => import("../components/pages/Errorpage"));
-const Notfoundpage = lazy(() => import("../components/pages/Notfoundpage"));
 
 export const publicRoutes = [
   {
@@ -19,14 +17,6 @@ export const publicRoutes = [
         element: <Authpage />,
       },
     ],
-  },
-  {
-    path: "/error",
-    element: <Errorpage />,
-  },
-  {
-    path: "*",
-    element: <Notfoundpage />,
   },
 ];
 

@@ -9,7 +9,7 @@ import { ScaleAnimation } from "../../animations";
 import { useGSAP } from "@gsap/react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo , useEffect } from "react";
 import { useSelector } from "react-redux";
 import ChangepPasswordmodel from "./ChangepPasswordmodel";
 
@@ -22,6 +22,8 @@ export default function Loginform({ showPassword, setShowpassword }) {
   const [LoginUser, { isLoading }] = useLoginUserMutation();
   const [showPasswordChangeModel, setShowPasswordChangeModel] = useState(false);
   const { userdata } = useSelector((state) => state.userinfo);
+
+  const { isUserAuthenticated } = useSelector((state) => state.user);
 
   const _User_id = useMemo(() => userdata._id || "", [userdata]);
 
@@ -41,6 +43,13 @@ export default function Loginform({ showPassword, setShowpassword }) {
     setShowPasswordChangeModel((prev) => !prev);
   }, []);
 
+  useEffect(() => {
+    if (isUserAuthenticated) {
+      navigate(`/chat/${_User_id}`);
+    }
+  }, [isUserAuthenticated]);
+
+
   const { errors, handleChange, values, handleSubmit } = useFormik({
     initialValues,
     validationSchema: LoginSchema,
@@ -54,7 +63,7 @@ export default function Loginform({ showPassword, setShowpassword }) {
 
           toast.success(message);
 
-          navigate(`/chat/${_User_id}`);
+          window.location.reload();
         }
       } catch (error) {
         if (error.data.status === "failed") {

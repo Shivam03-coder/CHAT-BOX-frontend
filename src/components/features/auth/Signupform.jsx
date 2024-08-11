@@ -51,6 +51,8 @@ export function Signupform({ showPassword, setShowpassword }) {
 
           window.location.reload();
         }
+
+        
       } catch (error) {
         if (error.data && error.data.status === "failed") {
           toast.error(error.data.message);
