@@ -7,6 +7,7 @@ import {
 } from "../../../../constants";
 import EmojiPicker from "emoji-picker-react";
 import { useSelector } from "react-redux";
+import { useUploadFileMutation } from "../../../../redux/endpoints/userauth";
 
 const MessagebarSection = () => {
   const [message, setMessage] = useState("");
@@ -17,6 +18,8 @@ const MessagebarSection = () => {
   const { socket } = useSelector((state) => state.socket);
   const userInfo = useSelector((state) => state.userinfo.userdata);
   const emojiref = useRef();
+  const fileRef = useRef();
+  const [uploadFile] = useUploadFileMutation();
 
   const handleChange = (e) => {
     setMessage(e.target.value);
@@ -54,11 +57,51 @@ const MessagebarSection = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const handleinputfile = () => {
+    if (fileRef.current) {
+      fileRef.current.click();
+    }
+  };
+
+  const handleAttachedfile = async (e) => {
+    try {
+      const selectedFile = e.target.files[0];
+      if (!selectedFile) {
+        console.error("No file selected");
+        return;
+      }
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+      const response = await uploadFile(formData).unwrap();
+
+      if (response.status === "success" && response.filepath !== "") {
+        if (selectedChatType === "contact") {
+          socket.emit("sendMessage", {
+            sender: userInfo._id,
+            receiver: selectedChatData._id,
+            content: undefined,
+            messageType: "files",
+            fileUrl: response.filepath,
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  };
+
   return (
     <section className="h-[14vh] flex items-center justify-center  text-white pr-3">
       <div className="flex-1 flex items-center px-4 rounded-2xl bg-primary-800 mx-4">
         <AttachmentIcon
+          onClick={handleinputfile}
           className="size-8 text-customOrange-500"
+        />
+        <input
+          onChange={handleAttachedfile}
+          ref={fileRef}
+          className="hidden"
+          type="file"
         />
         <input
           placeholder="Enter your message...."

@@ -34,10 +34,10 @@ const SearchedList = ({ setShowDialog, searchedContactList }) => {
 
   return (
     <section className="space-y-3">
-      {updateUser.map((list) => (
+      {updateUser.map((list,i) => (
         <div
           onClick={() => handleSelectedUser(list)}
-          key={list._id}
+          key={i}
           className="flex items-center px-9 gap-3 cursor-pointer"
         >
           <div

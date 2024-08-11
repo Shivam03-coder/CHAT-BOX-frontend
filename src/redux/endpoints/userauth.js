@@ -1,4 +1,3 @@
-import { createContext } from "react";
 import { Apiservices } from "../middlewares/apiServices";
 
 const headers = {
@@ -59,6 +58,15 @@ const userQuery = Apiservices.injectEndpoints({
         credentials: "include",
       }),
     }),
+    uploadFile: build.mutation({
+      query: (file) => ({
+        url: "/uploadfiles",
+        method: "POST",
+        body: file,
+        credentials: "include",
+      }),
+    }),
+    
     getContactlist: build.query({
       query: () => ({
         url: "/contactlist",
@@ -79,4 +87,5 @@ export const {
   useUserContactsListMutation,
   useGetMsgsMutation,
   useGetContactlistQuery,
+  useUploadFileMutation,
 } = userQuery;
