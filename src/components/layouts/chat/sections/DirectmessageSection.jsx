@@ -12,8 +12,8 @@ const DirectmessageSection = () => {
 
   return (
     <section className="mt-7">
-      <div className="flex justify-between px-5">
-        <Typography variant="h5" className="font-Inter" >DIRECT MESSAGES</Typography>
+      <div className="flex justify-evenly gap-7 px-5">
+        <Typography variant="h5" className="font-Inter" >CONTACTS</Typography>
         <AddIcon
           onClick={handleMsgDialog}
           className="size-7 font-bold cursor-pointer text-secondary-200"

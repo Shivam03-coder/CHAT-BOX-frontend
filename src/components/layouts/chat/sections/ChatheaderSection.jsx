@@ -1,18 +1,26 @@
 import { Typography } from "@material-tailwind/react";
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ExitChatIcon } from "../../../../constants";
+import { ExitChatIcon, MenuIcon } from "../../../../constants";
 import { closeSelectedChat } from "../../../../redux/state/chatState";
-
+import { useMediaquery } from "../../../../hooks/useMediaQuerry";
+import { setShowSidebar } from "../../../../redux/state/drawerState";
 const ChatheaderSection = () => {
   const { selectedChatData, selectedChatType } = useSelector(
     (state) => state.chats
   );
+  const { showSideBar } = useSelector((state) => state.drawer);
 
   const dispatch = useDispatch();
 
+  const isMobileView = useMediaquery(750);
+
   const handleExitSelectedChat = useCallback(() => {
     dispatch(closeSelectedChat());
+  }, [dispatch]);
+
+  const handleSidebar = useCallback(() => {
+    dispatch(setShowSidebar(!showSideBar));
   }, [dispatch]);
 
   return (
@@ -41,6 +49,10 @@ const ChatheaderSection = () => {
       <ExitChatIcon
         onClick={handleExitSelectedChat}
         className="w-8 h-8 text-customOrange-600 cursor-pointer"
+      />
+      <MenuIcon
+        onClick={handleSidebar}
+        className="w-8 h-8 text-secondary-400 block lg:hidden pl ml-5 cursor-pointer"
       />
     </section>
   );

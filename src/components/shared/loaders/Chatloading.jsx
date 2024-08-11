@@ -1,23 +1,41 @@
-import { Typography } from "@material-tailwind/react";
+import {  Typography } from "@material-tailwind/react";
 import { Discuss } from "react-loader-spinner";
+import { OpenChat } from "../../../constants";
+import { useDispatch, useSelector } from "react-redux";
+import { setShowSidebar } from "../../../redux/state/drawerState";
+import { useCallback } from "react";
 
 function Chatloading() {
+ 
+  const { showSideBar } = useSelector((state) => state.drawer);
+
+  const dispatch = useDispatch();
+
+  const handleSidebar = useCallback(() => {
+    dispatch(setShowSidebar(!showSideBar));
+  }, [dispatch]);
+
   return (
-    <div className="w-full min-h-screen bg-black flex-center flex flex-col md:flex-row gap-2 ">
-      <Discuss
-        visible={true}
-        height="130"
-        width="130"
-        ariaLabel="comment-loading"
-        wrapperStyle={{}}
-        wrapperClass="comment-wrapper"
-        color="#FF71CD"
-        backgroundColor="#F4442E"
-          />
-           <Typography className="text-secondary-300" variant="h2" >
-        WELOCOME TO <br /> CHAT BOX
-      </Typography>
-    </div>
+    <section className="w-full h-screen flex flex-col bg-black">
+      <div className=" block md:hidden h-[10vh] text-customOrange-600 m-7">
+        <OpenChat onClick={handleSidebar} className="size-10 cursor-pointer" />
+      </div>
+      <div className=" flex-1 flex-center flex flex-col md:flex-row gap-2 ">
+        <Discuss
+          visible={true}
+          height="130"
+          width="130"
+          ariaLabel="comment-loading"
+          wrapperStyle={{}}
+          wrapperClass="comment-wrapper"
+          color="#FF71CD"
+          backgroundColor="#F4442E"
+        />
+        <Typography className="text-secondary-300" variant="h2">
+          WELOCOME TO <br /> CHAT BOX
+        </Typography>
+      </div>
+    </section>
   );
 }
 

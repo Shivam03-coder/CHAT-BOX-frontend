@@ -37,7 +37,7 @@ const LastmsgContactSection = ({ contactList, selectedChatData }) => {
   const isActive = (contact) => contact._id === activeContactId;
 
   return (
-    <section className="flex py-6 flex-col px-9 space-y-4 overflow-y-auto max-h-[350px] scrollbar-hide">
+    <section className="flex py-6 flex-col px-9 space-y-4 overflow-y-auto max-h-[500px] scrollbar-hide">
       {contactList?.map((contact,i) => (
         <div
           onClick={() => handleSelectedUser(contact)}

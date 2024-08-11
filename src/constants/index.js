@@ -7,6 +7,8 @@ import { CgProfile } from "react-icons/cg";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { FaRegFilePdf } from "react-icons/fa";
 import { MdOutlineDownloading } from "react-icons/md";
+import { IoIosMenu } from "react-icons/io";
+import { RiMenu2Line } from "react-icons/ri";
 
 export const ChatIcon = PiChatTeardropTextLight;
 export const SendMsgIcon = VscSend;
@@ -18,3 +20,5 @@ export const AddIcon = CiCirclePlus;
 export const ExitChatIcon = RiLogoutBoxLine;
 export const FileIcon = FaRegFilePdf;
 export const DownLoadIcon = MdOutlineDownloading;
+export const MenuIcon = IoIosMenu;
+export const OpenChat = RiMenu2Line;
