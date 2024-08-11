@@ -15,7 +15,7 @@ const Useravatar = ({ size }) => {
 
   return (
     <div
-      className={`${size} border-2 border-black rounded-full font-Varela text-black text-3xl flex-center`}
+      className={`${size} border-2 border-black rounded-full font-Varela uppercase text-black text-3xl flex-center`}
       style={{ backgroundColor: userAvatarprops?.backgroundColor }}
     >
       {firstLetterOfName || "X"}
