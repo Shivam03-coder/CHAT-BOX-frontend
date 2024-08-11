@@ -20,6 +20,7 @@ const SocketContext = ({ children }) => {
         query: {
           userId: UserId,
         },
+        transports: ["websocket"],
       });
 
       socket.on("connect", () => {
