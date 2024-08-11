@@ -62,7 +62,7 @@ export default function Loginform({ showPassword, setShowpassword }) {
 
           toast.success(message);
 
-          window.location.reload();
+          // window.location.reload();
         }
       } catch (error) {
         if (error.data.status === "failed") {
