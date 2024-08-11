@@ -9,7 +9,7 @@ import { ScaleAnimation } from "../../animations";
 import { useGSAP } from "@gsap/react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState, useCallback, useMemo , useEffect } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import { useSelector } from "react-redux";
 import ChangepPasswordmodel from "./ChangepPasswordmodel";
 
@@ -49,7 +49,6 @@ export default function Loginform({ showPassword, setShowpassword }) {
     }
   }, [isUserAuthenticated]);
 
-
   const { errors, handleChange, values, handleSubmit } = useFormik({
     initialValues,
     validationSchema: LoginSchema,
@@ -60,9 +59,10 @@ export default function Loginform({ showPassword, setShowpassword }) {
 
         if (status === "success") {
           action.resetForm();
-          window.location.reload();
+
           toast.success(message);
 
+          window.location.reload();
         }
       } catch (error) {
         if (error.data.status === "failed") {
