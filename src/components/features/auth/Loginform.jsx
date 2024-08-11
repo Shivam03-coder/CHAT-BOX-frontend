@@ -55,8 +55,6 @@ export default function Loginform({ showPassword, setShowpassword }) {
           toast.success(message);
 
           navigate(`/chat/${_User_id}`);
-
-          window.location.reload();
         }
       } catch (error) {
         if (error.data.status === "failed") {
