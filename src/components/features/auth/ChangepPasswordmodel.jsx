@@ -23,7 +23,7 @@ const initialValues = {
   password: "",
 };
 
-function Passwordchnagemodel({
+function ChangepPasswordmodel({
   ShowpasswordchangeModel,
   setShowpasswordchangeModel,
 }) {
@@ -117,4 +117,4 @@ function Passwordchnagemodel({
     document.getElementById("dialog-root")
   );
 }
-export default Passwordchnagemodel;
+export default ChangepPasswordmodel;

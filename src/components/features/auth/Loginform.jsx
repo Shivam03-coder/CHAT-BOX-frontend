@@ -10,8 +10,8 @@ import { useGSAP } from "@gsap/react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useCallback, useMemo } from "react";
-import Passwordchnagemodel from "./ChangepPasswordmodel";
 import { useSelector } from "react-redux";
+import ChangepPasswordmodel from "./ChangepPasswordmodel";
 
 const initialValues = {
   email: "",
@@ -146,7 +146,7 @@ export default function Loginform({ showPassword, setShowpassword }) {
         </form>
       </Card>
       {showPasswordChangeModel && (
-        <Passwordchnagemodel
+        <ChangepPasswordmodel
           ShowpasswordchangeModel={showPasswordChangeModel}
           setShowpasswordchangeModel={setShowPasswordChangeModel}
         />
