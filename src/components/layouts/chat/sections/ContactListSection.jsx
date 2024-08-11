@@ -9,6 +9,7 @@ import { getRandomColor } from "../../../../utils/getRandomcolorCode";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaquery } from "../../../../hooks/useMediaQuerry";
 import { setShowSidebar } from "../../../../redux/state/drawerState";
+import MobileViewProfileSection from "./MobileViewProfileSection";
 
 const ContactListSection = () => {
   const { data } = useGetContactlistQuery();
@@ -50,7 +51,7 @@ const ContactListSection = () => {
           selectedChatData={selectedChatData}
           contactList={contactList}
         />
-        <ProfileinfoSection />
+        <MobileViewProfileSection />
       </Drawer>
     );
   }

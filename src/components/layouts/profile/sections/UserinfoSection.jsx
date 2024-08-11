@@ -1,5 +1,5 @@
 import { Button, Input } from "@material-tailwind/react";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserdata } from "../../../../redux/state/userprofileState";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,8 @@ const UserinfoSection = () => {
   const { userdata } = useSelector((state) => state.userinfo);
   const [Username, setUsername] = useState(userdata?.fullname);
 
+  const _User_id = useMemo(() => userdata?._id || "", [userdata]);
+
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -17,7 +19,7 @@ const UserinfoSection = () => {
   const handleUsername = useCallback(() => {
     dispatch(setUserdata(Username));
     toast.success("Profile Updated Sucessfully");
-    navigate("/chat");
+    navigate(`/chat/${_User_id}`);
   }, [dispatch, Username]);
 
   return (

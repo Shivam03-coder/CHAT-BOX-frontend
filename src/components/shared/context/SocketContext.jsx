@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
 import { disconnectSocket, setSocket } from "../../../redux/state/socketState";
 import { setSelectedChatMessages } from "../../../redux/state/chatState";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 const HOST = import.meta.env.VITE_SERVER_URL;
 
 const SocketContext = ({ children }) => {
@@ -25,7 +23,7 @@ const SocketContext = ({ children }) => {
       });
 
       socket.on("connect", () => {
-        toast.success("Connected to Network");
+        console.log("Connected to Network");
       });
 
       const handleReciveMessages = (message) => {
@@ -47,7 +45,7 @@ const SocketContext = ({ children }) => {
           socket.disconnect();
         }
         dispatch(disconnectSocket());
-        toast.error("Connection Lost");
+        console.log("Connection Lost");
       };
     }
   }, [UserId, HOST, dispatch, selectedChatType, selectedChatData]);

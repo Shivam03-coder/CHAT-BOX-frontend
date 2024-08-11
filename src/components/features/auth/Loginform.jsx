@@ -24,7 +24,6 @@ export default function Loginform({ showPassword, setShowpassword }) {
   const { userdata } = useSelector((state) => state.userinfo);
 
   const _User_id = useMemo(() => userdata._id || "", [userdata]);
-  console.log("🚀 ~ Loginform ~ _User_id:", _User_id)
 
   const navigate = useNavigate();
 
