@@ -59,19 +59,27 @@ export default function Loginform({ showPassword, setShowPassword }) {
           toast.success(message);
         }
       } catch (error) {
-        if (error.data?.status === "failed") {
-          toast.error(error.data.message);
-        } else {
-          toast.error("An unexpected error occurred.");
-        }
+        const errorMessage =
+          error?.data?.message || "Unexpected errors occurred.";
+        toast.error(errorMessage);
       }
     },
   });
 
   const passwordIcon = showPassword ? (
-    <GoEye className="cursor-pointer" size={17} color="blue" onClick={handlePasswordToggle} />
+    <GoEye
+      className="cursor-pointer"
+      size={17}
+      color="blue"
+      onClick={handlePasswordToggle}
+    />
   ) : (
-    <GoEyeClosed className="cursor-pointer" size={17} color="blue" onClick={handlePasswordToggle} />
+    <GoEyeClosed
+      className="cursor-pointer"
+      size={17}
+      color="blue"
+      onClick={handlePasswordToggle}
+    />
   );
 
   return (
@@ -105,7 +113,9 @@ export default function Loginform({ showPassword, setShowPassword }) {
                   className: "before:content-none after:content-none",
                 }}
               />
-              <p className="ml-2 text-red-400 font-Inter">{errors.email}</p>
+              {errors.email && (
+                <p className="ml-2 text-red-400 font-Inter">{errors.email}</p>
+              )}
             </div>
             <Typography variant="h6" className="-mb-3">
               Password
@@ -124,7 +134,11 @@ export default function Loginform({ showPassword, setShowPassword }) {
                 }}
                 icon={passwordIcon}
               />
-              <p className="ml-2 text-red-400 font-Inter">{errors.password}</p>
+              {errors.password && (
+                <p className="ml-2 text-red-400 font-Inter">
+                  {errors.password}
+                </p>
+              )}
             </div>
           </div>
           <div className="flex flex-col my-3">

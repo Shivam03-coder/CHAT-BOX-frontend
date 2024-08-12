@@ -3,9 +3,15 @@ import Cookie from "js-cookie";
 
 const initialState = {
   UserRegisterd: localStorage.getItem("userInfo") ? true : false,
-  isUserAuthenticated: Cookie.get("isUserAuthenticated")
-    ? JSON.parse(Cookie.get("isUserAuthenticated"))
-    : false,
+  isUserAuthenticated: (() => {
+    const cookie = Cookie.get("isUserAuthenticated");
+    try {
+      return cookie ? JSON.parse(cookie) : false;
+    } catch (e) {
+      console.error("Error parsing isUserAuthenticated cookie:", e);
+      return false;
+    }
+  })(),
 };
 
 export const userauthSlice = createSlice({
@@ -19,12 +25,15 @@ export const userauthSlice = createSlice({
 
     setIsUserAuthenticated: (state, action) => {
       state.isUserAuthenticated = action.payload;
-      Cookie.set("isUserAuthenticated", JSON.stringify(action.payload));
+      Cookie.set("isUserAuthenticated", JSON.stringify(action.payload), {
+        expires: 5, 
+        path: '/', 
+      });
     },
 
     clearIsUserAuthenticated: (state) => {
       state.isUserAuthenticated = false;
-      Cookie.remove("isUserAuthenticated");
+      Cookie.remove("isUserAuthenticated", { path: '/' }); 
     },
 
     clearUsercredentials: (state) => {
