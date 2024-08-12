@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useState, useCallback, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import ChangepPasswordmodel from "./ChangepPasswordmodel";
+import Cookie from "js-cookie";
 
 const initialValues = {
   email: "",
@@ -57,6 +58,8 @@ export default function Loginform({ showPassword, setShowPassword }) {
         if (status === "success") {
           action.resetForm();
           toast.success(message);
+          Cookie.set("isUserAuthenticated", true);
+          window.location.reload();
         }
       } catch (error) {
         const errorMessage =

@@ -2,22 +2,27 @@ import { useNavigate } from "react-router-dom";
 import { LogoutIcon } from "../../../constants";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
+import Cookie from "js-cookie"; // Ensure this is imported if you are managing cookies
 
 const Logout = ({ LogoutUser }) => {
-  const naviagate = useNavigate();
+  const navigate = useNavigate(); // Corrected spelling
+
   const handleUserLogout = useCallback(async () => {
     try {
       const resp = await LogoutUser().unwrap();
-      if (resp.status === "sucess") {
+      if (resp.status === "success") {
         toast.success(resp.message);
-        window.location.reload();
-        naviagate("/auth");
+        Cookie.remove("isUserAuthenticated"); 
+        window.location.reload(); 
+        navigate("/auth"); 
+        console.log("LOGOUT")
       }
     } catch (error) {
       console.error("Logout failed:", error);
+      toast.error("Logout failed. Please try again."); 
     }
-  }, [LogoutUser]);
+  }, [LogoutUser, navigate]); 
 
   return (
     <div
@@ -30,4 +35,4 @@ const Logout = ({ LogoutUser }) => {
   );
 };
 
-export default Logout;
+export default memo(Logout);

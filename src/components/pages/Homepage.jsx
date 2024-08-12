@@ -5,7 +5,7 @@ import { ParticlesBackground } from "../features/particles/Particles";
 const Homepage = () => {
   return (
     <div className="overlay-content">
-      {/* <ParticlesBackground /> */}
+      <ParticlesBackground />
       <Outlet />
     </div>
   );

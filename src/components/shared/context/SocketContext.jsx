@@ -16,8 +16,9 @@ const SocketContext = ({ children }) => {
 
   useEffect(() => {
     if (UserId) {
+      // Initialize WebSocket connection
       const socket = io(HOST, {
-        withCredentials: true,
+        withCredentials: true, 
         query: {
           userId: UserId,
         },
@@ -28,7 +29,8 @@ const SocketContext = ({ children }) => {
         console.log("Connected to Network");
       });
 
-      const handleReciveMessages = (message) => {
+      // Handle incoming messages
+      const handleReceiveMessages = (message) => {
         if (
           selectedChatType &&
           (selectedChatData._id === message.sender?._id ||
@@ -38,12 +40,14 @@ const SocketContext = ({ children }) => {
         }
       };
 
-      socket.on("reciveMessage", handleReciveMessages);
+      socket.on("receiveMessage", handleReceiveMessages);
 
+      // Dispatch the socket instance to Redux
       dispatch(setSocket(socket));
 
+      // Cleanup function for socket disconnection
       return () => {
-        socket.off("reciveMessage", handleReciveMessages); 
+        socket.off("receiveMessage", handleReceiveMessages);
         socket.disconnect();
         dispatch(disconnectSocket());
         console.log("Connection Lost");
