@@ -92,7 +92,7 @@ const MessagebarSection = () => {
 
   return (
 <section className="h-[14vh] flex items-center justify-center text-white pr-3 py-3 md:py-0">
-  <div className="flex-1 flex items-center px-4 py-2  rounded-2xl bg-primary-800 mx-2 sm:mx-4">
+  <div className="flex-1 flex items-center px-4 py-2 mb-y md:mb-0 rounded-2xl bg-primary-800 mx-2 sm:mx-4">
     <AttachmentIcon
       onClick={handleinputfile}
       className="size-6 sm:size-8 text-customOrange-500"
