@@ -38,8 +38,8 @@ const ChatheaderSection = () => {
               {selectedChatData.fullname.charAt(0)}
             </div>
             <Typography
-              className="text-white font-Varela uppercase"
-              variant="h5"
+              className="text-white text-2xl font-semibold font-Varela uppercase"
+              
             >
               {selectedChatData.fullname}
             </Typography>
