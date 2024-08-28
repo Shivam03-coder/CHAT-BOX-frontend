@@ -30,11 +30,4 @@ const ChatContainer = () => {
 
 export default ChatContainer;
 
-{
-  /* <div className="flex-center bg-gray-300">
-<ChatIcon className="size-14 text-secondary-300" />
-<Typography variant="h4" className="text-secondary-400">
-  CHAT-BOX
-</Typography>
-</div> */
-}
+
