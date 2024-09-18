@@ -58,7 +58,6 @@ export default function Loginform({ showPassword, setShowPassword }) {
         if (status === "success") {
           action.resetForm();
           toast.success(message);
-          Cookie.set("isUserAuthenticated", true);
           window.location.reload();
         }
       } catch (error) {
